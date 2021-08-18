@@ -1,3 +1,5 @@
+import ckan.plugins as plugins
+import ckan.plugins.toolkit as toolkit
 from collections import OrderedDict
 from sortedcontainers import SortedDict
 
@@ -138,15 +140,6 @@ def split_gcmd_tags(tags):
         log.exception("Error occurred while splitting GCMD tags:")
         return None
 
-    def get_helpers(self):
-        '''
-        Defines a set of callable helpers for the JINJA templates.
-        '''
-        return {
-            "filter_tag_names": filter_tag_names,
-            "gcmd_generate": gcmd_generate,
-            "gcmd_generate_facets": gcmd_generate_facets,
-        }
 
 class MetoceanKeywordsPlugin(p.SingletonPlugin):
     p.implements(p.IConfigurer)
@@ -185,3 +178,21 @@ class MetoceanKeywordsPlugin(p.SingletonPlugin):
         facets_dict['cf_standard_names'] = p.toolkit._('CF Standard Names')
         facets_dict['gcmd_keywords'] = p.toolkit._('GCMD Keywords')
         return facets_dict
+
+
+
+    def update_config(self, config_):
+        toolkit.add_template_directory(config_, "templates")
+        toolkit.add_public_directory(config_, "public")
+        toolkit.add_resource("assets", "metocean_keywords")
+
+
+    def get_helpers(self):
+        '''
+        Defines a set of callable helpers for the JINJA templates.
+        '''
+        return {
+            "filter_tag_names": filter_tag_names,
+            "gcmd_generate": gcmd_generate,
+            "gcmd_generate_facets": gcmd_generate_facets,
+        }

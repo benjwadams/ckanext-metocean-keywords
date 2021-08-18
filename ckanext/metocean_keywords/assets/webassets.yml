@@ -1,0 +1,14 @@
+# metocean_keywords-js:
+#   filter: rjsmin
+#   output: ckanext-metocean_keywords/%(version)s-metocean_keywords.js
+#   contents:
+#     - js/metocean_keywords.js
+#   extra:
+#     preload:
+#       - base/main
+
+# metocean_keywords-css:
+#   filter: cssrewrite
+#   output: ckanext-metocean_keywords/%(version)s-metocean_keywords.css
+#   contents:
+#     - css/metocean_keywords.css
