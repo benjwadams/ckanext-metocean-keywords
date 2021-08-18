@@ -1,4 +1,4 @@
-import ckan.plugins as plugins
+import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 from collections import OrderedDict
 from sortedcontainers import SortedDict
@@ -146,7 +146,7 @@ class MetoceanKeywordsPlugin(p.SingletonPlugin):
     p.implements(p.ITemplateHelpers)
     p.implements(p.IRoutes, inherit=True)
     p.implements(p.IPackageController, inherit=True)
-    p.implements(ISpatialHarvester, inherit=True)
+    p.implements(p.ISpatialHarvester, inherit=True)
     p.implements(p.IFacets, inherit=True)
 
     def before_index(self, data_dict):
