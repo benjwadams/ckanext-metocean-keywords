@@ -2,6 +2,7 @@ import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 from collections import OrderedDict
 from sortedcontainers import SortedDict
+from ckanext.spatial.interfaces import ISpatialHarvester
 
 def filter_tag_names(tags, cf_standard_names=None, gcmd_keywords=None):
     """
@@ -146,7 +147,7 @@ class MetoceanKeywordsPlugin(p.SingletonPlugin):
     p.implements(p.ITemplateHelpers)
     p.implements(p.IRoutes, inherit=True)
     p.implements(p.IPackageController, inherit=True)
-    p.implements(p.ISpatialHarvester, inherit=True)
+    p.implements(ISpatialHarvester, inherit=True)
     p.implements(p.IFacets, inherit=True)
 
     def before_index(self, data_dict):
