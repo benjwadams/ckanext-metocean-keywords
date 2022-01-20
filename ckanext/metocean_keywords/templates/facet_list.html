@@ -1,11 +1,11 @@
 {% ckan_extends %}
           {% block facet_list_items %}
             {% if name != 'gcmd_keywords' %}
-              {% set items = items or h.get_facet_items_dict(name) %}
+              {% set items = items or h.get_facet_items_dict(name), search_facets %}
             {% else %}
             {# put no limit on the number of facet items for GCMD Keywords
                since they are displayed hierarchically #}
-              {% set items = items or h.get_facet_items_dict(name, 0) %}
+              {% set items = items or h.get_facet_items_dict(name, search_facets, 0) %}
             {% endif %}
             {% with items = items %}
             {% if items %}
