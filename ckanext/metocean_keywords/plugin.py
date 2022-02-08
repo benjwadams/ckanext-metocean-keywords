@@ -3,6 +3,7 @@ import ckan.plugins.toolkit as toolkit
 from collections import OrderedDict
 from sortedcontainers import SortedDict
 from ckanext.spatial.interfaces import ISpatialHarvester
+import json
 
 def filter_tag_names(tags, cf_standard_names=None, gcmd_keywords=None):
     """
@@ -153,6 +154,7 @@ class MetoceanKeywordsPlugin(p.SingletonPlugin):
     def before_index(self, data_dict):
         # write GCMD Keywords and CF Standard Names to corresponding solr
         # multi-index fields
+        data_modified = data_dict.copy()
         for field_name in ('cf_standard_names', 'gcmd_keywords'):
             extras_str = data_dict.get("extras_{}".format(field_name))
             if extras_str is not None:
