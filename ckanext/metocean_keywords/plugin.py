@@ -3,7 +3,13 @@ import ckan.plugins.toolkit as toolkit
 from collections import OrderedDict
 from sortedcontainers import SortedDict
 from ckanext.spatial.interfaces import ISpatialHarvester
+from itertools import chain
+from lxml import etree
+import logging
+import re
 import json
+
+log = logging.getLogger()
 
 def filter_tag_names(tags, cf_standard_names=None, gcmd_keywords=None):
     """
@@ -96,7 +102,6 @@ def gen_facet_ul(parent_li, prev_results, sub_key):
     gcmd_link = etree.SubElement(parent_li, 'a', anchor_attrs)
     label_span = etree.SubElement(gcmd_link, "span", {"class": "item-label"})
     label_span.text = sub_key[0]
-    sep_span = etree.SubElement(gcmd_link, "span", {"class": "item-label"})
     return new_hier
 
 
@@ -167,28 +172,15 @@ class MetoceanKeywordsPlugin(p.SingletonPlugin):
                     data_modified[field_name] = extras_parse
         return data_modified
 
-    def get_helpers(self):
-        '''
-        Defines a set of callable helpers for the JINJA templates.
-        '''
-        return {
-            "filter_tag_names": filter_tag_names,
-            "gcmd_generate": gcmd_generate,
-            "gcmd_generate_facets": gcmd_generate_facets,
-        }
-
     def dataset_facets(self, facets_dict, package_type):
         facets_dict['cf_standard_names'] = p.toolkit._('CF Standard Names')
         facets_dict['gcmd_keywords'] = p.toolkit._('GCMD Keywords')
         return facets_dict
 
-
-
     def update_config(self, config_):
         toolkit.add_template_directory(config_, "templates")
         toolkit.add_public_directory(config_, "public")
         toolkit.add_resource("assets", "metocean_keywords")
-
 
     def get_helpers(self):
         '''
