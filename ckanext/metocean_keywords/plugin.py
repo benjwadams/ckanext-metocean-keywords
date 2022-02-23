@@ -125,7 +125,7 @@ def gcmd_to_ul(gcmd_dict, elem=None, prev_results=None,
     # operates on side effects, so if the base recursion case, return
     # the generated XML string.
     if not prev_results:
-        return etree.tostring(elem, pretty_print=True)
+        return etree.tostring(elem, pretty_print=True, encoding=str)
 
 def split_gcmd_list(tags):
     return chain(*[re.split(r'\s*>\s*', t.strip()) for t in tags])
