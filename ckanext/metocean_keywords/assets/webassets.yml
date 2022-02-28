@@ -1,11 +1,11 @@
- metocean_keywords_js:
-   filter: rjsmin
-   output: ckanext-metocean_keywords/%(version)s-metocean_keywords.js
-   contents:
-     - js/metocean_keywords.js
-   extra:
-     preload:
-       - base/main
+metocean_keywords_js:
+  filter: rjsmin
+  output: ckanext-metocean-keywords/%(version)s-metocean_keywords.js
+  contents:
+    - js/metocean_keywords.js
+  extra:
+    preload:
+      - base/main
 
 # metocean_keywords-css:
 #   filter: cssrewrite
